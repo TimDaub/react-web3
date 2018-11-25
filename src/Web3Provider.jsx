@@ -120,6 +120,7 @@ class Web3Provider extends React.Component {
   }
 
   handleAccounts(accounts, isConstructor = false) {
+    console.log('handleAccounts', isConstructor);
     const { onChangeAccount } = this.props;
     const { store } = this.context;
     let next = accounts[0];
