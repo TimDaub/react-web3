@@ -67,8 +67,8 @@ class Web3Provider extends React.Component {
    * Start polling accounts, & network. We poll indefinitely so that we can
    * react to the user changing accounts or netowrks.
    */
-  componentDidMount() {
-    this.fetchAccounts();
+  async componentDidMount() {
+    await this.fetchAccounts();
     this.fetchNetwork();
     this.initPoll();
     this.initNetworkPoll();
@@ -100,21 +100,24 @@ class Web3Provider extends React.Component {
    */
   fetchAccounts() {
     const { web3 } = window;
-    const ethAccounts = this.getAccounts();
+    return new Promise(function(resolve, reject) {
+      const ethAccounts = this.getAccounts();
 
-    if (isEmpty(ethAccounts)) {
-      web3 && web3.currentProvider && web3.currentProvider.enable()
-      .then(accounts => this.handleAccounts(accounts))
-      .catch((err) => {
-        this.setState({
-          accountsError: err
+      if (isEmpty(ethAccounts)) {
+        web3 && web3.currentProvider && web3.currentProvider.enable()
+        .then(accounts => this.handleAccounts(accounts))
+        .catch((err) => {
+          this.setState({
+            accountsError: err
+          });
         });
-      });
-    } else {
-      this.handleAccounts(ethAccounts);
-    }
+      } else {
+        this.handleAccounts(ethAccounts);
+      }
 
-    this.setState({fetchedAccounts: true})
+      this.setState({fetchedAccounts: true})
+      resolve(true)
+    }
   }
 
   handleAccounts(accounts, isConstructor = false) {
@@ -155,8 +158,6 @@ class Web3Provider extends React.Component {
           type: 'web3/LOGOUT',
           address: null
         })
-
-        this.setState({accounts: []})
 
       } else if (didLogin || (isConstructor && next)) {
         store.dispatch({
