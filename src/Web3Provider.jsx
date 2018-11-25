@@ -68,6 +68,7 @@ class Web3Provider extends React.Component {
    * react to the user changing accounts or netowrks.
    */
   componentDidMount() {
+    console.log("componentDidMount")
     this.fetchAccounts();
     this.fetchNetwork();
     this.initPoll();
@@ -128,6 +129,7 @@ class Web3Provider extends React.Component {
     if(!isConstructor){
       this.setState({fetchedAccounts: true})
     }
+
     if (isEmpty(this.state.accounts) && !isEmpty(accounts)) {
       this.setState({
         accountsError: null,
