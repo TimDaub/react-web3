@@ -131,6 +131,7 @@ class Web3Provider extends React.Component {
     if (isEmpty(this.state.accounts) && !isEmpty(accounts)) {
       this.setState({
         accountsError: null,
+        fetchedAccounts: true,
         accounts: accounts
       });
     }
@@ -138,6 +139,7 @@ class Web3Provider extends React.Component {
     if (didChange && !isConstructor) {
       this.setState({
         accountsError: null,
+        fetchedAccounts: true,
         accounts
       });
     }
@@ -169,7 +171,6 @@ class Web3Provider extends React.Component {
         })
       }
     }
-    this.setState({fetchedAccounts: true})
   }
 
   /**
