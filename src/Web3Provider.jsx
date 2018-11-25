@@ -160,6 +160,7 @@ class Web3Provider extends React.Component {
           type: 'web3/LOGOUT',
           address: null
         })
+        this.setState({accounts: []})
       } else if (didLogin || (isConstructor && next)) {
         store.dispatch({
           type: 'web3/RECEIVE_ACCOUNT',
