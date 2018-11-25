@@ -109,13 +109,13 @@ class Web3Provider extends React.Component {
       .then(accounts => this.handleAccounts(accounts))
       .catch((err) => {
         this.setState({
-          accountsError: err,
-          fetchedAccounts: true,
+          accountsError: err
         });
       });
     } else {
       this.handleAccounts(ethAccounts);
     }
+    this.setState({fetchedAccounts: true})
 
   }
 
@@ -127,10 +127,6 @@ class Web3Provider extends React.Component {
     next = next && next.toLowerCase();
     curr = curr && curr.toLowerCase();
     const didChange = curr && next && (curr !== next);
-
-    if(!isConstructor){
-      this.setState({fetchedAccounts: true})
-    }
 
     if (isEmpty(this.state.accounts) && !isEmpty(accounts)) {
       this.setState({
@@ -161,7 +157,6 @@ class Web3Provider extends React.Component {
           type: 'web3/LOGOUT',
           address: null
         })
-        this.setState({accounts: []})
       } else if (didLogin || (isConstructor && next)) {
         store.dispatch({
           type: 'web3/RECEIVE_ACCOUNT',
