@@ -117,7 +117,7 @@ class Web3Provider extends React.Component {
 
       this.setState({fetchedAccounts: true})
       resolve(true)
-    }
+    })
   }
 
   handleAccounts(accounts, isConstructor = false) {
