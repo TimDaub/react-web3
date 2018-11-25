@@ -22,7 +22,7 @@ const childContextTypes = {
     accounts: PropTypes.array,
     selectedAccount: PropTypes.string,
     network: PropTypes.string,
-    // networkId: PropTypes.number
+    networkId: PropTypes.number
   })
 };
 
@@ -100,6 +100,7 @@ class Web3Provider extends React.Component {
    * @return {void}
    */
   fetchAccounts() {
+    console.log('fetchAccounts')
     const { web3 } = window;
     const ethAccounts = this.getAccounts();
 
