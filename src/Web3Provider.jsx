@@ -115,7 +115,7 @@ class Web3Provider extends React.Component {
     } else {
       this.handleAccounts(ethAccounts);
     }
-    this.setState({fetchedAccounts: true})
+
 
   }
 
@@ -169,6 +169,7 @@ class Web3Provider extends React.Component {
         })
       }
     }
+    this.setState({fetchedAccounts: true})
   }
 
   /**
