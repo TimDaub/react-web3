@@ -155,6 +155,9 @@ class Web3Provider extends React.Component {
           type: 'web3/LOGOUT',
           address: null
         })
+
+        this.setState({accounts: []})
+
       } else if (didLogin || (isConstructor && next)) {
         store.dispatch({
           type: 'web3/RECEIVE_ACCOUNT',
@@ -228,7 +231,7 @@ class Web3Provider extends React.Component {
       web3UnavailableScreen: Web3UnavailableComponent,
       accountUnavailableScreen: AccountUnavailableComponent
     } = this.props;
-    console.log("this.props.children", passive)
+
     if (passive) {
       return this.props.children;
     }
