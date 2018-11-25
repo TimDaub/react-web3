@@ -68,7 +68,7 @@ class Web3Provider extends React.Component {
    * react to the user changing accounts or netowrks.
    */
   componentDidMount() {
-    await this.fetchAccounts();
+    this.fetchAccounts();
     this.fetchNetwork();
     this.initPoll();
     this.initNetworkPoll();
@@ -98,7 +98,7 @@ class Web3Provider extends React.Component {
    * Update state regarding the availability of web3 and an ETH account.
    * @return {void}
    */
-  async fetchAccounts() {
+  fetchAccounts() {
     const { web3 } = window;
     const ethAccounts = this.getAccounts();
 
