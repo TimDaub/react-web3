@@ -166,7 +166,9 @@ class Web3Provider extends React.Component {
         })
       }
     }
-    this.setState({fetchedAccounts: true})
+    if(!isConstructor){
+      this.setState({fetchedAccounts: true})
+    }
   }
 
   /**
