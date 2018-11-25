@@ -72,8 +72,6 @@ class Web3Provider extends React.Component {
     this.fetchNetwork();
     this.initPoll();
     this.initNetworkPoll();
-
-    this.setState({fetchedAccounts: true})
   }
 
   /**
@@ -101,7 +99,6 @@ class Web3Provider extends React.Component {
    * @return {void}
    */
   fetchAccounts() {
-    console.log('fetchAccounts')
     const { web3 } = window;
     const ethAccounts = this.getAccounts();
 
@@ -117,11 +114,10 @@ class Web3Provider extends React.Component {
       this.handleAccounts(ethAccounts);
     }
 
-
+    this.setState({fetchedAccounts: true})
   }
 
   handleAccounts(accounts, isConstructor = false) {
-    console.log('handleAccounts', isConstructor);
     const { onChangeAccount } = this.props;
     const { store } = this.context;
     let next = accounts[0];
@@ -241,6 +237,7 @@ class Web3Provider extends React.Component {
       return <Web3UnavailableComponent />;
     }
 
+    console.log('accounts', this.state.accounts)
     console.log('AccountUnavailableComponent', isEmpty(this.state.accounts), fetchedAccounts,  (isEmpty(this.state.accounts) && fetchedAccounts))
     if (isEmpty(this.state.accounts) && fetchedAccounts) {
       return <AccountUnavailableComponent />;
