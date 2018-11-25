@@ -34,14 +34,17 @@ class Web3Provider extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    const accounts = this.getAccounts();
 
     this.state = {
-      accounts,
+      accounts = []
       fetchedAccounts: false,
       networkId: null,
       networkError: null
     };
+
+    const accounts = this.getAccounts();
+    this.setState(accounts)
+
     this.interval = null;
     this.networkInterval = null;
     this.fetchAccounts = this.fetchAccounts.bind(this);
