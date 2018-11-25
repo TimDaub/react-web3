@@ -109,7 +109,8 @@ class Web3Provider extends React.Component {
       .then(accounts => this.handleAccounts(accounts))
       .catch((err) => {
         this.setState({
-          accountsError: err
+          accountsError: err,
+          fetchedAccounts: true,
         });
       });
     } else {
