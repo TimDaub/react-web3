@@ -166,9 +166,6 @@ class Web3Provider extends React.Component {
         })
       }
     }
-    if(!isConstructor){
-      this.setState({fetchedAccounts: true})
-    }
   }
 
   /**
@@ -219,6 +216,7 @@ class Web3Provider extends React.Component {
     } catch (e) {
       return [];
     }
+    this.setState({fetchedAccounts: true})
   }
 
   render() {
