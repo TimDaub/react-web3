@@ -34,17 +34,14 @@ class Web3Provider extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+    const accounts = this.getAccounts();
 
     this.state = {
-      accounts = []
+      accounts,
       fetchedAccounts: false,
       networkId: null,
       networkError: null
     };
-
-    const accounts = this.getAccounts();
-    this.setState(accounts)
-
     this.interval = null;
     this.networkInterval = null;
     this.fetchAccounts = this.fetchAccounts.bind(this);
@@ -128,6 +125,9 @@ class Web3Provider extends React.Component {
     curr = curr && curr.toLowerCase();
     const didChange = curr && next && (curr !== next);
 
+    if(!isConstructor){
+      this.setState({fetchedAccounts: true})
+    }
     if (isEmpty(this.state.accounts) && !isEmpty(accounts)) {
       this.setState({
         accountsError: null,
@@ -219,7 +219,7 @@ class Web3Provider extends React.Component {
     } catch (e) {
       return [];
     }
-    this.setState({fetchedAccounts: true})
+
   }
 
   render() {
