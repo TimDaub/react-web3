@@ -105,17 +105,17 @@ class Web3Provider extends React.Component {
     const ethAccounts = this.getAccounts();
 
     if (isEmpty(ethAccounts)) {
-      console.log('isEmpty')
+      console.log("is Empty")
       web3 && web3.currentProvider && web3.currentProvider.enable()
-        .then(accounts => console.log('then'); this.handleAccounts(accounts))
-        .catch((err) => {
-          console.log("err")
-          this.setState({
-            accountsError: err
-          });
+      .then(accounts => this.handleAccounts(accounts))
+      .catch((err) => {
+        console.log("ERR: ", err)
+        this.setState({
+          accountsError: err
         });
+      });
     } else {
-      console.log("isNotEmpty")
+      console.log('is not empty')
       this.handleAccounts(ethAccounts);
     }
     console.log("**************** fetchedAccounts ****************")
