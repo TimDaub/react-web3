@@ -27,14 +27,13 @@ const childContextTypes = {
 };
 
 class Web3Provider extends React.Component {
-
   static contextTypes = {
     store: PropTypes.object
   };
 
   constructor(props, context) {
     super(props, context);
-    const accounts = this.getAccounts();
+    const accounts = null//this.getAccounts();
 
     this.state = {
       accounts,
@@ -42,10 +41,12 @@ class Web3Provider extends React.Component {
       networkId: null,
       networkError: null
     };
-    this.interval = null;
+
+    this.interval        = null;
     this.networkInterval = null;
+
     this.fetchAccounts = this.fetchAccounts.bind(this);
-    this.fetchNetwork = this.fetchNetwork.bind(this);
+    this.fetchNetwork  = this.fetchNetwork.bind(this);
 
     if (accounts) {
       this.handleAccounts(accounts, true);
@@ -67,8 +68,8 @@ class Web3Provider extends React.Component {
    * Start polling accounts, & network. We poll indefinitely so that we can
    * react to the user changing accounts or netowrks.
    */
-  async componentDidMount() {
-    await this.fetchAccounts();
+  componentDidMount() {
+    this.fetchAccounts();
     this.fetchNetwork();
     this.initPoll();
     this.initNetworkPoll();
@@ -100,25 +101,21 @@ class Web3Provider extends React.Component {
    */
   fetchAccounts() {
     const { web3 } = window;
-    let self = this;
-    return new Promise(function(resolve, reject) {
-      const ethAccounts = self.getAccounts();
+    const ethAccounts = this.getAccounts();
 
-      if (isEmpty(ethAccounts)) {
-        web3 && web3.currentProvider && web3.currentProvider.enable()
-        .then(accounts => self.handleAccounts(accounts))
-        .catch((err) => {
-          self.setState({
-            accountsError: err
-          });
+    if (isEmpty(ethAccounts)) {
+      web3 && web3.currentProvider && web3.currentProvider.enable()
+      .then(accounts => this.handleAccounts(accounts))
+      .catch((err) => {
+        this.setState({
+          accountsError: err
         });
-      } else {
-        self.handleAccounts(ethAccounts);
-      }
+      });
+    } else {
+      this.handleAccounts(ethAccounts);
+    }
 
-      self.setState({fetchedAccounts: true})
-      resolve(true)
-    })
+    this.setState({fetchedAccounts: true})
   }
 
   handleAccounts(accounts, isConstructor = false) {
