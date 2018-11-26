@@ -33,7 +33,7 @@ class Web3Provider extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    const accounts = null//this.getAccounts();
+    const accounts = this.getAccounts();
 
     this.state = {
       accounts,
