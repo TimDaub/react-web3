@@ -100,22 +100,23 @@ class Web3Provider extends React.Component {
    */
   fetchAccounts() {
     const { web3 } = window;
+    let self = this;
     return new Promise(function(resolve, reject) {
-      const ethAccounts = this.getAccounts();
+      const ethAccounts = self.getAccounts();
 
       if (isEmpty(ethAccounts)) {
         web3 && web3.currentProvider && web3.currentProvider.enable()
-        .then(accounts => this.handleAccounts(accounts))
+        .then(accounts => self.handleAccounts(accounts))
         .catch((err) => {
-          this.setState({
+          self.setState({
             accountsError: err
           });
         });
       } else {
-        this.handleAccounts(ethAccounts);
+        self.handleAccounts(ethAccounts);
       }
 
-      this.setState({fetchedAccounts: true})
+      self.setState({fetchedAccounts: true})
       resolve(true)
     }).bind(this)
   }
