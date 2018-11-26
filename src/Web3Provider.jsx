@@ -33,7 +33,7 @@ class Web3Provider extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    const accounts = null//this.getAccounts();
+    const accounts = this.getAccounts();
 
     this.state = {
       accounts,
@@ -99,18 +99,18 @@ class Web3Provider extends React.Component {
    * Update state regarding the availability of web3 and an ETH account.
    * @return {void}
    */
-  fetchAccounts() {
+  async fetchAccounts() {
     const { web3 } = window;
     const ethAccounts = this.getAccounts();
 
-    if (isEmpty(ethAccounts)) {
-      web3 && web3.currentProvider && web3.currentProvider.enable()
-      .then(accounts => this.handleAccounts(accounts))
-      .catch((err) => {
-        this.setState({
-          accountsError: err
+    if (isEmpty(ethAccounts) && web3 && web3.currentProvider) {
+      await web3.currentProvider.enable()
+        .then(accounts => this.handleAccounts(accounts))
+        .catch((err) => {
+          this.setState({
+            accountsError: err
+          });
         });
-      });
     } else {
       this.handleAccounts(ethAccounts);
     }
