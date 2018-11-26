@@ -27,6 +27,7 @@ const childContextTypes = {
 };
 
 class Web3Provider extends React.Component {
+
   static contextTypes = {
     store: PropTypes.object
   };
@@ -37,16 +38,14 @@ class Web3Provider extends React.Component {
 
     this.state = {
       accounts,
-      fetchedAccounts: false,
+      accountsLoaded: false,
       networkId: null,
       networkError: null
     };
-
-    this.interval        = null;
+    this.interval = null;
     this.networkInterval = null;
-
     this.fetchAccounts = this.fetchAccounts.bind(this);
-    this.fetchNetwork  = this.fetchNetwork.bind(this);
+    this.fetchNetwork = this.fetchNetwork.bind(this);
 
     if (accounts) {
       this.handleAccounts(accounts, true);
@@ -100,26 +99,23 @@ class Web3Provider extends React.Component {
    * @return {void}
    */
   fetchAccounts() {
-    console.log('fetchAccounts()')
     const { web3 } = window;
     const ethAccounts = this.getAccounts();
 
     if (isEmpty(ethAccounts)) {
-      console.log("is Empty")
       web3 && web3.currentProvider && web3.currentProvider.enable()
-      .then(accounts => this.handleAccounts(accounts))
-      .catch((err) => {
-        console.log("ERR: ", err)
-        this.setState({
-          accountsError: err
+        .then((accounts) => {
+          this.setState({ accountsLoaded: true })
+          this.handleAccounts(accounts)
+        })
+        .catch((err) => {
+           this.setState({ accountsError: err});
         });
-      });
+
     } else {
-      console.log('is not empty')
       this.handleAccounts(ethAccounts);
     }
-    console.log("**************** fetchedAccounts ****************")
-    this.setState({fetchedAccounts: true})
+
   }
 
   handleAccounts(accounts, isConstructor = false) {
@@ -160,7 +156,6 @@ class Web3Provider extends React.Component {
           type: 'web3/LOGOUT',
           address: null
         })
-
       } else if (didLogin || (isConstructor && next)) {
         store.dispatch({
           type: 'web3/RECEIVE_ACCOUNT',
@@ -223,12 +218,11 @@ class Web3Provider extends React.Component {
     } catch (e) {
       return [];
     }
-
   }
 
   render() {
     const { web3 } = window;
-    const { fetchedAccounts } = this.state;
+    const { accountsLoaded } = this.state;
     const {
       passive,
       web3UnavailableScreen: Web3UnavailableComponent,
@@ -243,9 +237,7 @@ class Web3Provider extends React.Component {
       return <Web3UnavailableComponent />;
     }
 
-    console.log('accounts', this.state.accounts)
-    console.log('AccountUnavailableComponent', isEmpty(this.state.accounts), fetchedAccounts,  (isEmpty(this.state.accounts) && fetchedAccounts))
-    if (isEmpty(this.state.accounts) && fetchedAccounts) {
+    if (isEmpty(this.state.accounts) && accountsLoaded) {
       return <AccountUnavailableComponent />;
     }
 
