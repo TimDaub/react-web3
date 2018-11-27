@@ -223,6 +223,7 @@ class Web3Provider extends React.Component {
       console.log("getAccounts accounts: ", accounts)
       return accounts;
     } catch (e) {
+      console.log("error thrown", e)
       return [];
     }
   }
