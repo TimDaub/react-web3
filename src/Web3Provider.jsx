@@ -218,14 +218,9 @@ class Web3Provider extends React.Component {
       // throws if no account selected
       const getV1Wallets = () => range(web3.eth.accounts.wallet.length).map(i => web3.eth.accounts.wallet[i]).map(w => w.address);
       console.log('isV1?', isV1)
-      let accounts
-      if(isV1){
-        accounts = getV1Wallets()
-      } else {
-        ethereum.enable().then(a => accounts = a)
-        // web3.eth.getAccounts((error, accounts) => {
-      }
 
+      const accounts = isV1 ? getV1Wallets() : await ethereum.enable()
+      console.log("getAccounts accounts: ", accounts)
       return accounts;
     } catch (e) {
       return [];
