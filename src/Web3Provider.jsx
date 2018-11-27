@@ -33,6 +33,7 @@ class Web3Provider extends React.Component {
   };
 
   constructor(props, context) {
+    console.log("consturctor")
     super(props, context);
     const accounts = this.getAccounts();
 
@@ -209,14 +210,14 @@ class Web3Provider extends React.Component {
    */
   async getAccounts() {
     console.log("getAccounts")
-    const { web3 } = window;
+    const { web3, ethereum } = window;
 
     try {
       const { web3 } = window;
       const isV1 = /^1/.test(web3.version);
       // throws if no account selected
       const getV1Wallets = () => range(web3.eth.accounts.wallet.length).map(i => web3.eth.accounts.wallet[i]).map(w => w.address);
-      const accounts = isV1 ? getV1Wallets() : await web3.eth.getAccounts();
+      const accounts = isV1 ? getV1Wallets() : await ethereum.enable();
 
       return accounts;
     } catch (e) {
