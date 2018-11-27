@@ -47,9 +47,9 @@ class Web3Provider extends React.Component {
     this.fetchAccounts = this.fetchAccounts.bind(this);
     this.fetchNetwork = this.fetchNetwork.bind(this);
 
-    if (accounts) {
-      this.handleAccounts(accounts, true);
-    }
+    // if (accounts) {
+    //   this.handleAccounts(accounts, true);
+    // }
   }
 
   getChildContext() {
