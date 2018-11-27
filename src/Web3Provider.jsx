@@ -33,6 +33,7 @@ class Web3Provider extends React.Component {
   };
 
   constructor(props, context) {
+    console.log("consturctor")
     super(props, context);
     const accounts = this.getAccounts();
 
@@ -53,6 +54,7 @@ class Web3Provider extends React.Component {
   }
 
   getChildContext() {
+    console.log("getChildContext")
     return {
       web3: {
         accounts: this.state.accounts,
@@ -68,6 +70,7 @@ class Web3Provider extends React.Component {
    * react to the user changing accounts or netowrks.
    */
   componentDidMount() {
+    console.log("componentDidMount")
     this.fetchAccounts();
     this.fetchNetwork();
     this.initPoll();
@@ -79,6 +82,7 @@ class Web3Provider extends React.Component {
    * @return {void}
    */
   initPoll() {
+    console.log('initPoll')
     if (!this.interval) {
       this.interval = setInterval(this.fetchAccounts, ONE_SECOND);
     }
@@ -89,6 +93,7 @@ class Web3Provider extends React.Component {
    * @return {void}
    */
   initNetworkPoll() {
+    console.log("initNetworkPoll")
     if (!this.networkInterval) {
       this.networkInterval = setInterval(this.fetchNetwork, ONE_MINUTE);
     }
@@ -99,10 +104,10 @@ class Web3Provider extends React.Component {
    * @return {void}
    */
   fetchAccounts() {
+    console.log("fetch accounts")
     const { web3 } = window;
     const ethAccounts = this.getAccounts();
 
-    console.log("setState to TRUE")
     this.setState({ accountsLoaded: true })
 
     if (isEmpty(ethAccounts)) {
@@ -120,6 +125,7 @@ class Web3Provider extends React.Component {
   }
 
   handleAccounts(accounts, isConstructor = false) {
+    console.log("handleAccounts")
     const { onChangeAccount } = this.props;
     const { store } = this.context;
     let next = accounts[0];
@@ -176,6 +182,7 @@ class Web3Provider extends React.Component {
    * @return {void}
    */
   fetchNetwork() {
+    console.log("fetchNetworks")
     const { web3 } = window;
 
     if (web3) {
@@ -206,6 +213,7 @@ class Web3Provider extends React.Component {
    * @return {String}
    */
   getAccounts() {
+    console.log("getAccounts")
     const { web3 } = window;
 
     try {
@@ -222,6 +230,7 @@ class Web3Provider extends React.Component {
   }
 
   render() {
+    console.log("render")
     const { web3 } = window;
     const { accountsLoaded, accounts } = this.state;
     const {
