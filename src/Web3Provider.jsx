@@ -115,7 +115,6 @@ class Web3Provider extends React.Component {
     } else {
       this.handleAccounts(ethAccounts);
     }
-
   }
 
   handleAccounts(accounts, isConstructor = false) {
@@ -237,7 +236,7 @@ class Web3Provider extends React.Component {
       return <Web3UnavailableComponent />;
     }
 
-    if (isEmpty(this.state.accounts) && accountsLoaded) {
+    if (isEmpty(this.state.accounts) || !accountsLoaded) {
       return <AccountUnavailableComponent />;
     }
 
