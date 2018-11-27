@@ -243,7 +243,7 @@ class Web3Provider extends React.Component {
       return <Web3UnavailableComponent />;
     }
 
-    console.log('accounts: ', accounts)
+    console.log('accounts: ', this.state.accounts)
     if (isEmpty(this.state.accounts)) {
       return <AccountUnavailableComponent />;
     }
