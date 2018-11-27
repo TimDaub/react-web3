@@ -219,7 +219,7 @@ class Web3Provider extends React.Component {
       const getV1Wallets = () => range(web3.eth.accounts.wallet.length).map(i => web3.eth.accounts.wallet[i]).map(w => w.address);
       console.log('isV1?', isV1)
       let accounts
-      if isV1 {
+      if(isV1){
         accounts = getV1Wallets()
       } else {
         accounts = await ethereum.enable()
