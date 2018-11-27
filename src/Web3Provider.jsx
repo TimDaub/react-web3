@@ -213,7 +213,7 @@ class Web3Provider extends React.Component {
       const isV1 = /^1/.test(web3.version);
       // throws if no account selected
       const getV1Wallets = () => range(web3.eth.accounts.wallet.length).map(i => web3.eth.accounts.wallet[i]).map(w => w.address);
-      const accounts = isV1 ? getV1Wallets() : web3.eth.getAccounts();
+      const accounts = isV1 ? getV1Wallets() : web3.eth.accounts;
 
       return accounts;
     } catch (e) {
