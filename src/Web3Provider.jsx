@@ -108,8 +108,6 @@ class Web3Provider extends React.Component {
     const { web3 } = window;
     const ethAccounts = this.getAccounts();
 
-    this.setState({ accountsLoaded: true })
-
     if (isEmpty(ethAccounts)) {
       web3 && web3.currentProvider && web3.currentProvider.enable()
         .then((accounts) => {
@@ -215,6 +213,8 @@ class Web3Provider extends React.Component {
   getAccounts() {
     console.log("getAccounts")
     const { web3 } = window;
+
+    this.setState({ accountsLoaded: true })
 
     try {
       const { web3 } = window;
