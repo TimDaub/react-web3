@@ -64,12 +64,16 @@ class Web3Provider extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.fetchAccounts();
+  }
+
   /**
    * Start polling accounts, & network. We poll indefinitely so that we can
    * react to the user changing accounts or netowrks.
    */
   componentDidMount() {
-    console.log("componentDidMount")
+    // console.log("componentDidMount")
     this.fetchAccounts();
     this.fetchNetwork();
     this.initPoll();
