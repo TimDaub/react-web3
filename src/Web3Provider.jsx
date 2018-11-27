@@ -221,7 +221,7 @@ class Web3Provider extends React.Component {
 
   render() {
     const { web3 } = window;
-    const { accountsLoaded } = this.state;
+    const { accountsLoaded, accounts } = this.state;
     const {
       passive,
       web3UnavailableScreen: Web3UnavailableComponent,
@@ -236,7 +236,9 @@ class Web3Provider extends React.Component {
       return <Web3UnavailableComponent />;
     }
 
-    if (isEmpty(this.state.accounts) || !accountsLoaded) {
+    console.log('accounts: ' accounts)
+    console.log('accountsLoaded', accountsLoaded)
+    if (isEmpty(accounts) || !accountsLoaded) {
       return <AccountUnavailableComponent />;
     }
 
