@@ -222,7 +222,7 @@ class Web3Provider extends React.Component {
       if(isV1){
         accounts = getV1Wallets()
       } else {
-        accounts = await ethereum.enable()
+        ethereum.enable().then(a => accounts = a)
         // web3.eth.getAccounts((error, accounts) => {
       }
 
