@@ -239,7 +239,7 @@ class Web3Provider extends React.Component {
 
     console.log('accounts: ', accounts)
     console.log('accountsLoaded: ', accountsLoaded)
-    if (isEmpty(accounts) && accountsLoaded) {
+    if (!accountsLoaded || isEmpty(accounts)) {
       return <AccountUnavailableComponent />;
     }
 
