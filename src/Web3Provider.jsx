@@ -104,10 +104,10 @@ class Web3Provider extends React.Component {
    */
   fetchAccounts() {
     console.log("fetch accounts")
-    const { web3 } = window;
+    const { ethereum } = window;
     const ethAccounts = this.getAccounts();
     if (isEmpty(ethAccounts)) {
-      web3 && web3.ethereum && web3.ethereum.enable()
+      ethereum && ethereum.enable()
         .then((accounts) => {
           this.handleAccounts(accounts)
         })
