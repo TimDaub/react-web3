@@ -105,7 +105,6 @@ class Web3Provider extends React.Component {
     if (isEmpty(ethAccounts)) {
       web3 && web3.currentProvider && web3.currentProvider.enable()
         .then((accounts) => {
-          this.setState({ accountsLoaded: true })
           this.handleAccounts(accounts)
         })
         .catch((err) => {
@@ -206,6 +205,8 @@ class Web3Provider extends React.Component {
   getAccounts() {
     const { web3 } = window;
 
+    this.setState({ accountsLoaded: true })
+
     try {
       const { web3 } = window;
       const isV1 = /^1/.test(web3.version);
@@ -238,7 +239,7 @@ class Web3Provider extends React.Component {
 
     console.log('accounts: ', accounts)
     console.log('accountsLoaded: ', accountsLoaded)
-    if (isEmpty(accounts) || !accountsLoaded) {
+    if (isEmpty(accounts) && accountsLoaded) {
       return <AccountUnavailableComponent />;
     }
 
