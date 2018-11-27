@@ -102,10 +102,12 @@ class Web3Provider extends React.Component {
     const { web3 } = window;
     const ethAccounts = this.getAccounts();
 
+    console.log("setState to TRUE")
+    this.setState({ accountsLoaded: true })
+
     if (isEmpty(ethAccounts)) {
       web3 && web3.currentProvider && web3.currentProvider.enable()
         .then((accounts) => {
-          this.setState({ accountsLoaded: true })
           this.handleAccounts(accounts)
         })
         .catch((err) => {
@@ -113,7 +115,6 @@ class Web3Provider extends React.Component {
         });
 
     } else {
-      this.setState({ accountsLoaded: true })
       this.handleAccounts(ethAccounts);
     }
   }
@@ -212,7 +213,7 @@ class Web3Provider extends React.Component {
       const isV1 = /^1/.test(web3.version);
       // throws if no account selected
       const getV1Wallets = () => range(web3.eth.accounts.wallet.length).map(i => web3.eth.accounts.wallet[i]).map(w => w.address);
-      const accounts = isV1 ? getV1Wallets() : web3.eth.accounts;
+      const accounts = isV1 ? getV1Wallets() : web3.eth.getAccounts();
 
       return accounts;
     } catch (e) {
